@@ -12,6 +12,7 @@ public class Sodoku{
         this.col = cols;
         this.grid = new int[rows][cols];
     }
+    // todo: Implement algorithm to generate valid sodoku grid (look up)
    public void fillNums(){
         Random rand = new Random();
         for (int i = 0; i < row; i++){
