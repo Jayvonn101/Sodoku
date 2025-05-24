@@ -15,6 +15,8 @@ public class Setup {
         Sodoku grid = new Sodoku(row, col);
         grid.fillNums();
         grid.printNums();
+        grid.validateGrid(row, col);
+        System.out.println("Sodoku grid generated successfully with " + row + " rows and " + col + " columns.");
     }
     
     private static int getMaxRow(Scanner scanner) {

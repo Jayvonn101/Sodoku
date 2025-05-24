@@ -12,7 +12,20 @@ public class Sodoku{
         this.col = cols;
         this.grid = new int[rows][cols];
     }
-    // todo: Implement algorithm to generate valid sodoku grid (look up)
+    
+    public void validateGrid(int rows, int cols) {
+        if (rows <= 0 || cols <= 0) {
+            throw new IllegalArgumentException("Rows and columns must be greater than zero.");
+        }
+        if (rows != cols) {
+            throw new IllegalArgumentException("Sodoku grid must be square (same number of rows and columns).");
+        }
+        this.row = rows;
+        this.col = cols;
+        this.grid = new int[rows][cols];
+
+    }
+
    public void fillNums(){
         Random rand = new Random();
         for (int i = 0; i < row; i++){
