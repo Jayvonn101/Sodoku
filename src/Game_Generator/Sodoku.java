@@ -25,6 +25,17 @@ public class Sodoku{
         this.grid = new int[rows][cols];
 
     }
+    public void placeEmptyCells(int emptyCells){
+        if (emptyCells < 0 || emptyCells > row * col) {
+            throw new IllegalArgumentException("Number of empty cells must be between 0 and " + (row * col));
+        }
+        Random rand = new Random();
+        for (int i = 0; i < emptyCells; i++) {
+            int r = rand.nextInt(row);
+            int c = rand.nextInt(col);
+            this.grid[r][c] = 0; // Using -1 to represent an empty cell
+        }
+    }
 
    public void fillNums(){
         Random rand = new Random();
