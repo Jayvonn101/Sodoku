@@ -153,7 +153,7 @@ public class Sudoku implements Serializable {
         return null;
     }
 
-    private boolean isValid(int r, int c, int num) {
+    public boolean isValid(int r, int c, int num) {
         for (int j = 0; j < col; j++) {
             if (grid[r][j] == num) return false;
         }

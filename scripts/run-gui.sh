@@ -1,0 +1,3 @@
+#!/bin/bash
+echo "Running Sudoku GUI..."
+java -cp target/classes org.sudoku.SudokuGUI
