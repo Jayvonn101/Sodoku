@@ -16,6 +16,9 @@ Thumbs.db
 # Logs
 *.log
 
+# Save files
+saves/
+
 # Package files
 *.jar
 *.war
