@@ -170,7 +170,7 @@ public class SudokuGUI extends JFrame {
                 g2d.dispose();
             }
         };
-        title.setFont(new Font("Consolas", Font.BOLD, 52));
+        title.setFont(new Font("Arial Unicode MS", Font.BOLD, 52));
         title.setForeground(NEON_CYAN);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setPreferredSize(new Dimension(500, 80));
@@ -202,7 +202,7 @@ public class SudokuGUI extends JFrame {
                 g2d.dispose();
             }
         };
-        subtitle.setFont(new Font("Consolas", Font.PLAIN, 20));
+        subtitle.setFont(new Font("Arial Unicode MS", Font.PLAIN, 20));
         subtitle.setForeground(NEON_MAGENTA);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -275,7 +275,7 @@ public class SudokuGUI extends JFrame {
                 g2d.dispose();
             }
         };
-        title.setFont(new Font("Consolas", Font.BOLD, 36));
+        title.setFont(new Font("Arial Unicode MS", Font.BOLD, 36));
         title.setPreferredSize(new Dimension(500, 60));
         
         // Difficulty buttons with glow
@@ -351,7 +351,7 @@ public class SudokuGUI extends JFrame {
                 g2d.dispose();
             }
         };
-        titleLabel.setFont(new Font("Consolas", Font.BOLD, 22));
+        titleLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 22));
         titleLabel.setPreferredSize(new Dimension(300, 40));
         
         // Timer with glow
@@ -380,7 +380,7 @@ public class SudokuGUI extends JFrame {
                 g2d.dispose();
             }
         };
-        timerLabel.setFont(new Font("Consolas", Font.BOLD, 16));
+        timerLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 16));
         timerLabel.setPreferredSize(new Dimension(150, 40));
         
         topPanel.add(backBtn, BorderLayout.WEST);
@@ -389,7 +389,7 @@ public class SudokuGUI extends JFrame {
         
         // Status label with border
         statusLabel = new JLabel("SELECT A CELL TO BEGIN");
-        statusLabel.setFont(new Font("Consolas", Font.BOLD, 14));
+        statusLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 14));
         statusLabel.setForeground(NEON_YELLOW);
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         statusLabel.setBorder(createGlowBorder(NEON_YELLOW, 2));
@@ -490,7 +490,7 @@ public class SudokuGUI extends JFrame {
         };
         
         cell.setHorizontalAlignment(JTextField.CENTER);
-        cell.setFont(new Font("Consolas", Font.BOLD, 24));
+        cell.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
         cell.setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
         cell.setBackground(DARK_BG);
         cell.setForeground(TEXT_COLOR);
@@ -608,7 +608,7 @@ public class SudokuGUI extends JFrame {
         
         // Glowing title
         JLabel title = new JLabel("⚡ SELECT SAVE FILE ⚡");
-        title.setFont(new Font("Consolas", Font.BOLD, 24));
+        title.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
         title.setForeground(NEON_CYAN);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setBorder(createGlowBorder(NEON_CYAN, 2));
@@ -619,7 +619,7 @@ public class SudokuGUI extends JFrame {
         
         if (saveFiles == null || saveFiles.length == 0) {
             JLabel noSaves = new JLabel("NO SAVED GAMES FOUND");
-            noSaves.setFont(new Font("Consolas", Font.BOLD, 18));
+            noSaves.setFont(new Font("Arial Unicode MS", Font.BOLD, 18));
             noSaves.setForeground(NEON_RED);
             noSaves.setHorizontalAlignment(SwingConstants.CENTER);
             panel.add(noSaves, BorderLayout.CENTER);
@@ -637,7 +637,7 @@ public class SudokuGUI extends JFrame {
             }
             
             JList<String> list = new JList<>(names);
-            list.setFont(new Font("Consolas", Font.BOLD, 16));
+            list.setFont(new Font("Arial Unicode MS", Font.BOLD, 16));
             list.setBackground(DARK_BG);
             list.setForeground(NEON_YELLOW);
             list.setSelectionBackground(NEON_MAGENTA);
@@ -704,7 +704,7 @@ public class SudokuGUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel title = new JLabel("⚙ CUSTOM DIFFICULTY ⚙");
-        title.setFont(new Font("Consolas", Font.BOLD, 24));
+        title.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
         title.setForeground(NEON_PINK);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setBorder(createGlowBorder(NEON_PINK, 2));
@@ -714,12 +714,12 @@ public class SudokuGUI extends JFrame {
         inputPanel.setBackground(BLACK_BG);
         
         JLabel label = new JLabel("EMPTY CELLS (1-80):");
-        label.setFont(new Font("Consolas", Font.BOLD, 16));
+        label.setFont(new Font("Arial Unicode MS", Font.BOLD, 16));
         label.setForeground(NEON_YELLOW);
         inputPanel.add(label, BorderLayout.NORTH);
         
         JTextField field = new JTextField("45", 10);
-        field.setFont(new Font("Consolas", Font.BOLD, 24));
+        field.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
         field.setBackground(DARK_BG);
         field.setForeground(NEON_CYAN);
         field.setCaretColor(NEON_CYAN);
@@ -801,13 +801,13 @@ public class SudokuGUI extends JFrame {
                 if (fixed[row][col] && value != 0) {
                     cell.setBackground(new Color(20, 20, 30));
                     cell.setForeground(NEON_CYAN);
-                    cell.setFont(new Font("Consolas", Font.BOLD, 24));
+                    cell.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
                     cell.setEditable(false);
                     cell.setBorder(BorderFactory.createLineBorder(NEON_CYAN, 2));
                 } else {
                     cell.setBackground(DARK_BG);
                     cell.setForeground(TEXT_COLOR);
-                    cell.setFont(new Font("Consolas", Font.PLAIN, 24));
+                    cell.setFont(new Font("Arial Unicode MS", Font.PLAIN, 24));
                     cell.setEditable(true);
                     cell.setBorder(BorderFactory.createLineBorder(NEON_BLUE_DIM, 1));
                 }
@@ -926,7 +926,7 @@ public class SudokuGUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel title = new JLabel("💾 SAVE GAME 💾");
-        title.setFont(new Font("Consolas", Font.BOLD, 24));
+        title.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
         title.setForeground(NEON_GREEN);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setBorder(createGlowBorder(NEON_GREEN, 2));
@@ -936,12 +936,12 @@ public class SudokuGUI extends JFrame {
         inputPanel.setBackground(BLACK_BG);
         
         JLabel label = new JLabel("SAVE NAME:");
-        label.setFont(new Font("Consolas", Font.BOLD, 16));
+        label.setFont(new Font("Arial Unicode MS", Font.BOLD, 16));
         label.setForeground(NEON_CYAN);
         inputPanel.add(label, BorderLayout.NORTH);
         
         JTextField field = new JTextField("sudoku_save", 15);
-        field.setFont(new Font("Consolas", Font.BOLD, 18));
+        field.setFont(new Font("Arial Unicode MS", Font.BOLD, 18));
         field.setBackground(DARK_BG);
         field.setForeground(NEON_GREEN);
         field.setCaretColor(NEON_GREEN);
@@ -996,7 +996,7 @@ public class SudokuGUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel(message);
-        label.setFont(new Font("Consolas", Font.BOLD, 16));
+        label.setFont(new Font("Arial Unicode MS", Font.BOLD, 16));
         label.setForeground(NEON_RED);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, BorderLayout.CENTER);
@@ -1038,7 +1038,7 @@ public class SudokuGUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel(message);
-        label.setFont(new Font("Consolas", Font.BOLD, 16));
+        label.setFont(new Font("Arial Unicode MS", Font.BOLD, 16));
         label.setForeground(NEON_CYAN);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, BorderLayout.CENTER);
@@ -1069,7 +1069,7 @@ public class SudokuGUI extends JFrame {
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel("AUTO-SOLVE THE PUZZLE?");
-        label.setFont(new Font("Consolas", Font.BOLD, 18));
+        label.setFont(new Font("Arial Unicode MS", Font.BOLD, 18));
         label.setForeground(NEON_ORANGE);
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label, BorderLayout.CENTER);
@@ -1119,7 +1119,7 @@ public class SudokuGUI extends JFrame {
                 "TIME: " + formatTime(total) + "\n" +
                 "DIFFICULTY: " + difficulty
             );
-            text.setFont(new Font("Consolas", Font.BOLD, 18));
+            text.setFont(new Font("Arial Unicode MS", Font.BOLD, 18));
             text.setBackground(BLACK_BG);
             text.setForeground(NEON_GREEN);
             text.setEditable(false);
@@ -1166,7 +1166,7 @@ public class SudokuGUI extends JFrame {
             super(text);
             this.neonColor = neonColor;
             
-            setFont(new Font("Consolas", Font.BOLD, fontSize));
+            setFont(new Font("Arial Unicode MS", Font.BOLD, fontSize));
             setBackground(BLACK_BG);
             setForeground(neonColor);
             setBorder(createGlowBorder(neonColor, 2));
