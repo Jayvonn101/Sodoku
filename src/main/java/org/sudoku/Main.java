@@ -1,8 +1,8 @@
-package Game_Generator;
+package org.sudoku;
 
 import java.util.Scanner;
 
-public class Setup {
+public class Main {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -11,7 +11,7 @@ public class Setup {
         int col = getMaxCol(scanner);
         int empty = emptyCells(scanner, row, col);
 
-        Sodoku grid = new Sodoku(row, col);
+        Sudoku grid = new Sudoku(row, col);
         grid.fillNums();
         grid.placeEmptyCells(empty);
         System.out.println("Puzzle:");

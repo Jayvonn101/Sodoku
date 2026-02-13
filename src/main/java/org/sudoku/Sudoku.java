@@ -1,18 +1,18 @@
-package Game_Generator;
+package org.sudoku;
 
 import java.util.Random;
 
-public class Sodoku {
+public class Sudoku {
     private int row;
     private int col;
     private int[][] grid;
 
-    public Sodoku(int rows, int cols) {
+    public Sudoku(int rows, int cols) {
         if (rows <= 0 || cols <= 0) {
             throw new IllegalArgumentException("Rows and columns must be greater than zero.");
         }
         if (rows != cols) {
-            throw new IllegalArgumentException("Sodoku grid must be square (same number of rows and columns).");
+            throw new IllegalArgumentException("Sudoku grid must be square (same number of rows and columns).");
         }
         this.row = rows;
         this.col = cols;
