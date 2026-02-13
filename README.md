@@ -1,18 +1,67 @@
-## Getting Started
+# Sudoku
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+A Java-based Sudoku game generator and solver.
 
-## Folder Structure
+## Project Structure
 
-The workspace contains two folders by default, where:
+```
+Sodoku/
+├── src/
+│   └── main/
+│       └── java/
+│           └── org/
+│               └── sudoku/
+│                   ├── Main.java       # Entry point and game loop
+│                   └── Sudoku.java     # Sudoku logic and solver
+├── scripts/
+│   ├── build.bat       # Windows build script
+│   ├── build.sh        # Unix build script
+│   ├── run.bat         # Windows run script
+│   └── run.sh          # Unix run script
+├── target/
+│   └── classes/        # Compiled class files
+└── README.md
+```
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Building
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Windows
+```cmd
+scripts\build.bat
+```
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+### Unix/Linux/Mac
+```bash
+./scripts/build.sh
+```
 
-## Dependency Management
+## Running
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+### Windows
+```cmd
+scripts\run.bat
+```
+
+### Unix/Linux/Mac
+```bash
+./scripts/run.sh
+```
+
+## How to Play
+
+1. Run the application
+2. Enter grid size (typically 9 for standard Sudoku)
+3. Enter number of empty cells (difficulty level)
+4. Fill in the puzzle by entering:
+   - Row number (1-9)
+   - Column number (1-9)
+   - Number to place (1-9)
+5. Continue until the puzzle is solved!
+
+## Features
+
+- Generates random valid Sudoku puzzles
+- Supports custom grid sizes
+- Configurable difficulty (number of empty cells)
+- Real-time validation of moves
+- Backtracking solver algorithm
