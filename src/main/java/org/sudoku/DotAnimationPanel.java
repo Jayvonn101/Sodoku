@@ -122,14 +122,14 @@ public class DotAnimationPanel extends JPanel implements ActionListener {
                 
                 if (distance < CONNECTION_DISTANCE) {
                     float lineOpacity = (1 - distance / CONNECTION_DISTANCE) * 0.25f;
-                    int alpha = (int) (lineOpacity * 255);
+                    int alpha = Math.min(255, Math.max(0, (int) (lineOpacity * 255)));
                     
                     // Randomly vary line color slightly
                     int colorVar = random.nextInt(20);
                     g2d.setColor(new Color(
-                        LINE_COLOR.getRed() + colorVar,
-                        LINE_COLOR.getGreen() + colorVar,
-                        LINE_COLOR.getBlue() + colorVar,
+                        Math.min(255, LINE_COLOR.getRed() + colorVar),
+                        Math.min(255, LINE_COLOR.getGreen() + colorVar),
+                        Math.min(255, LINE_COLOR.getBlue() + colorVar),
                         alpha
                     ));
                     
@@ -156,12 +156,12 @@ public class DotAnimationPanel extends JPanel implements ActionListener {
                 currentOpacity *= 1.5f;
             }
             
-            int alpha = (int) (currentOpacity * 255);
+            int alpha = Math.min(255, Math.max(0, (int) (currentOpacity * 255)));
             
             // Draw outer glow (larger, more transparent)
             for (int r = (int) (currentSize * 3); r > currentSize; r -= 2) {
                 float glowOpacity = (1 - (float) (r - currentSize) / (currentSize * 2)) * 0.15f;
-                int glowAlpha = (int) (glowOpacity * alpha * 0.5f);
+                int glowAlpha = Math.min(255, Math.max(0, (int) (glowOpacity * alpha * 0.5f)));
                 g2d.setColor(new Color(140, 140, 150, glowAlpha));
                 g2d.fillOval(
                     (int) (dotX[i] - r), (int) (dotY[i] - r),
@@ -172,7 +172,7 @@ public class DotAnimationPanel extends JPanel implements ActionListener {
             // Draw medium glow
             for (int r = (int) (currentSize * 1.5f); r > currentSize; r--) {
                 float glowOpacity = (1 - (float) (r - currentSize) / (currentSize * 0.5f)) * 0.3f;
-                int glowAlpha = (int) (glowOpacity * alpha);
+                int glowAlpha = Math.min(255, Math.max(0, (int) (glowOpacity * alpha)));
                 g2d.setColor(new Color(130, 130, 140, glowAlpha));
                 g2d.fillOval(
                     (int) (dotX[i] - r), (int) (dotY[i] - r),
@@ -181,7 +181,7 @@ public class DotAnimationPanel extends JPanel implements ActionListener {
             }
             
             // Draw main dot
-            int dotAlpha = (int) (currentOpacity * 230);
+            int dotAlpha = Math.min(255, Math.max(0, (int) (currentOpacity * 230)));
             if (pulseFactor > 0.85f || currentOpacity > 0.7f) {
                 // Bright dot
                 g2d.setColor(new Color(DOT_BRIGHT.getRed(), DOT_BRIGHT.getGreen(), DOT_BRIGHT.getBlue(), dotAlpha));
