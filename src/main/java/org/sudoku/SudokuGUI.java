@@ -317,7 +317,7 @@ public class SudokuGUI extends JFrame {
         // -------------------------------------------------------------------
         // TITLE LABEL - "SUDOKU" with animated pulsing glow effect
         // -------------------------------------------------------------------
-        JLabel title = new JLabel("SUDOKU") {
+        JLabel title = new JLabel("🔢 SUDOKU 🤓") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g.create();
@@ -354,7 +354,7 @@ public class SudokuGUI extends JFrame {
         // -------------------------------------------------------------------
         // SUBTITLE LABEL - Fun tagline with glow
         // -------------------------------------------------------------------
-        JLabel subtitle = new JLabel("🧩 Train Your Brain! 🎯") {
+        JLabel subtitle = new JLabel("🔫 Train Your Brain! 🎯") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2d = (Graphics2D) g.create();
@@ -403,7 +403,7 @@ public class SudokuGUI extends JFrame {
         // -------------------------------------------------------------------
         // CREDIT LABEL - Author attribution
         // -------------------------------------------------------------------
-        JLabel creditLabel = new JLabel("GUI assembled by cjRem44x");
+        JLabel creditLabel = new JLabel("GUI assembled by cjRem44x (°□°) ☝️");
         creditLabel.setFont(new Font("Arial Unicode MS", Font.ITALIC, 16));
         creditLabel.setForeground(new Color(100, 100, 110));
         creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
