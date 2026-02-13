@@ -149,7 +149,8 @@ public class SudokuGUI extends JFrame {
                 }
             }
         };
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
         
         GridBagConstraints gbc = new GridBagConstraints();
@@ -259,7 +260,8 @@ public class SudokuGUI extends JFrame {
                 }
             }
         };
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(50, 100, 50, 100));
         
         GridBagConstraints gbc = new GridBagConstraints();
@@ -325,12 +327,13 @@ public class SudokuGUI extends JFrame {
     
     private JPanel createGamePanel() {
         JPanel panel = new JPanel(new BorderLayout(10, 10));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
         
         // Top panel with glowing border
         JPanel topPanel = new JPanel(new BorderLayout(10, 10));
-        topPanel.setBackground(BLACK_BG);
+        topPanel.setBackground(new Color(0, 0, 0, 100));
         topPanel.setBorder(createGlowBorder(NEON_CYAN, 3));
         
         // Back button
@@ -412,12 +415,13 @@ public class SudokuGUI extends JFrame {
         statusLabel.setBorder(createGlowBorder(NEON_YELLOW, 2));
         
         JPanel statusPanel = new JPanel(new BorderLayout());
-        statusPanel.setBackground(BLACK_BG);
+        statusPanel.setBackground(new Color(0, 0, 0, 100));
         statusPanel.add(statusLabel, BorderLayout.CENTER);
         
         // Combine top
         JPanel headerPanel = new JPanel(new BorderLayout(5, 5));
-        headerPanel.setBackground(BLACK_BG);
+        headerPanel.setBackground(new Color(0, 0, 0, 0));
+        headerPanel.setOpaque(false);
         headerPanel.add(topPanel, BorderLayout.NORTH);
         headerPanel.add(statusPanel, BorderLayout.SOUTH);
         
@@ -560,12 +564,13 @@ public class SudokuGUI extends JFrame {
     
     private JPanel createControlPanel() {
         JPanel mainPanel = new JPanel(new BorderLayout(10, 10));
-        mainPanel.setBackground(BLACK_BG);
+        mainPanel.setBackground(new Color(0, 0, 0, 0));
+        mainPanel.setOpaque(false);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         
         // Button panel with glow border
         JPanel buttonPanel = new JPanel(new GridLayout(2, 3, 8, 8));
-        buttonPanel.setBackground(BLACK_BG);
+        buttonPanel.setBackground(new Color(0, 0, 0, 100));
         buttonPanel.setBorder(createGlowBorder(NEON_BLUE, 2));
         
         NeonButton saveBtn = new NeonButton("💾 SAVE", NEON_GREEN, 12, new Dimension(100, 40));
@@ -595,7 +600,7 @@ public class SudokuGUI extends JFrame {
         
         // Number pad with glow
         JPanel numberPanel = new JPanel(new GridLayout(1, 9, 5, 5));
-        numberPanel.setBackground(BLACK_BG);
+        numberPanel.setBackground(new Color(0, 0, 0, 100));
         numberPanel.setBorder(createGlowBorder(NEON_PURPLE, 2));
         
         for (int i = 1; i <= 9; i++) {
@@ -620,7 +625,8 @@ public class SudokuGUI extends JFrame {
         dialog.getContentPane().setBackground(BLACK_BG);
         
         JPanel panel = new JPanel(new BorderLayout(20, 20));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         // Glowing title
@@ -717,7 +723,8 @@ public class SudokuGUI extends JFrame {
         dialog.getContentPane().setBackground(BLACK_BG);
         
         JPanel panel = new JPanel(new BorderLayout(20, 20));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel title = new JLabel("⚙ CUSTOM DIFFICULTY ⚙");
@@ -939,7 +946,8 @@ public class SudokuGUI extends JFrame {
         dialog.getContentPane().setBackground(BLACK_BG);
         
         JPanel panel = new JPanel(new BorderLayout(20, 20));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel title = new JLabel("💾 SAVE GAME 💾");
@@ -1009,7 +1017,8 @@ public class SudokuGUI extends JFrame {
         dialog.getContentPane().setBackground(BLACK_BG);
         
         JPanel panel = new JPanel(new BorderLayout(20, 20));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel(message);
@@ -1051,7 +1060,8 @@ public class SudokuGUI extends JFrame {
         dialog.getContentPane().setBackground(BLACK_BG);
         
         JPanel panel = new JPanel(new BorderLayout(20, 20));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel(message);
@@ -1082,7 +1092,8 @@ public class SudokuGUI extends JFrame {
         dialog.getContentPane().setBackground(BLACK_BG);
         
         JPanel panel = new JPanel(new BorderLayout(20, 20));
-        panel.setBackground(BLACK_BG);
+        panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel("AUTO-SOLVE THE PUZZLE?");
@@ -1127,7 +1138,8 @@ public class SudokuGUI extends JFrame {
             dialog.getContentPane().setBackground(BLACK_BG);
             
             JPanel panel = new JPanel(new BorderLayout(20, 20));
-            panel.setBackground(BLACK_BG);
+            panel.setBackground(new Color(0, 0, 0, 0));
+        panel.setOpaque(false);
             panel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
             
             JTextArea text = new JTextArea(
