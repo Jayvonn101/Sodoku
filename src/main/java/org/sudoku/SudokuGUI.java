@@ -27,7 +27,7 @@ public class SudokuGUI extends JFrame {
     
     // Window dimensions
     private static final int WINDOW_WIDTH = 1000;
-    private static final int WINDOW_HEIGHT = 850;
+    private static final int WINDOW_HEIGHT = 1000;
     
     // Enhanced neon color scheme
     private static final Color BLACK_BG = new Color(0, 0, 5);
