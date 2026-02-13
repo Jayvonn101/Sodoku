@@ -242,6 +242,14 @@ public class SudokuGUI extends JFrame {
         panel.add(loadGameBtn, gbc);
         panel.add(quitBtn, gbc);
         
+        // Credit label
+        JLabel creditLabel = new JLabel("GUI assembled by cjRem44x");
+        creditLabel.setFont(new Font("Arial Unicode MS", Font.ITALIC, 12));
+        creditLabel.setForeground(new Color(100, 100, 110));
+        creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        gbc.insets = new Insets(30, 0, 0, 0);
+        panel.add(creditLabel, gbc);
+        
         return panel;
     }
     
