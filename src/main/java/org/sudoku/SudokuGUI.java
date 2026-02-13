@@ -59,6 +59,9 @@ public class SudokuGUI extends JFrame {
     private static final String DIFFICULTY_PANEL = "DIFFICULTY";
     private static final String GAME_PANEL = "GAME";
     
+    // Background animation
+    private DotAnimationPanel dotAnimation;
+    
     public SudokuGUI() {
         setTitle("SUDOKU");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -76,9 +79,21 @@ public class SudokuGUI extends JFrame {
     }
     
     private void initComponents() {
+        // Create layered pane for background animation
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setPreferredSize(new Dimension(700, 700));
+        
+        // Create dot animation background
+        dotAnimation = new DotAnimationPanel();
+        dotAnimation.setBounds(0, 0, 700, 700);
+        layeredPane.add(dotAnimation, JLayeredPane.DEFAULT_LAYER);
+        
+        // Create main content panel with card layout
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel.setBackground(BLACK_BG);
+        mainPanel.setBackground(new Color(0, 0, 0, 0));
+        mainPanel.setOpaque(false);
+        mainPanel.setBounds(0, 0, 700, 700);
         
         // Create all panels
         JPanel menuPanel = createMainMenuPanel();
@@ -89,7 +104,9 @@ public class SudokuGUI extends JFrame {
         mainPanel.add(difficultyPanel, DIFFICULTY_PANEL);
         mainPanel.add(gamePanel, GAME_PANEL);
         
-        add(mainPanel);
+        layeredPane.add(mainPanel, JLayeredPane.PALETTE_LAYER);
+        
+        add(layeredPane);
         
         cardLayout.show(mainPanel, MENU_PANEL);
     }
