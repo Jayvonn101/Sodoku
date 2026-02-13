@@ -451,7 +451,8 @@ public class SudokuGUI extends JFrame {
     
     private JPanel createGridPanel() {
         JPanel gridPanel = new JPanel(new GridLayout(GRID_SIZE, GRID_SIZE, 2, 2));
-        gridPanel.setBackground(NEON_MAGENTA);
+        gridPanel.setBackground(new Color(255, 0, 255, 80));
+        gridPanel.setOpaque(false);
         gridPanel.setBorder(BorderFactory.createEmptyBorder(4, 4, 4, 4));
         
         cells = new JTextField[GRID_SIZE][GRID_SIZE];
@@ -513,7 +514,7 @@ public class SudokuGUI extends JFrame {
         cell.setHorizontalAlignment(JTextField.CENTER);
         cell.setFont(new Font("Arial Unicode MS", Font.BOLD, 24));
         cell.setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
-        cell.setBackground(DARK_BG);
+        cell.setBackground(new Color(10, 10, 15, 200));
         cell.setForeground(TEXT_COLOR);
         cell.setCaretColor(NEON_CYAN);
         cell.setBorder(BorderFactory.createLineBorder(NEON_BLUE_DIM, 1));
