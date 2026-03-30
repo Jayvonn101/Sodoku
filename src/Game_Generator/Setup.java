@@ -19,7 +19,7 @@ public class Setup {
 
         // Game loop: let user fill in the board
         while (!grid.isSolved()) {
-            System.out.println("\nEnter row (1-" + row + "), column (1-" + col + "), and number (1-9):");
+            System.out.println("\nEnter row (1-" + row + "), column (1-" + col + "), and number (1-" + row + "):");
             System.out.print("Row: ");
             int r = scanner.nextInt() - 1;
             System.out.print("Column: ");

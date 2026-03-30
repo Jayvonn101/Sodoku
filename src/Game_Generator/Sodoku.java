@@ -54,7 +54,8 @@ public class Sodoku {
 
     private int[] shuffledNumbers() {
         Random rand = new Random();
-        int[] nums = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+        int[] nums = new int[row];
+        for (int i = 0; i < row; i++) nums[i] = i + 1;
         for (int k = nums.length - 1; k > 0; k--) {
             int swap = rand.nextInt(k + 1);
             int temp = nums[k];
@@ -89,8 +90,8 @@ public class Sodoku {
             System.out.println("Cell is already occupied.");
             return false;
         }
-        if (num < 1 || num > 9) {
-            System.out.println("Number must be between 1 and 9.");
+        if (num < 1 || num > row) {
+            System.out.println("Number must be between 1 and " + row + ".");
             return false;
         }
         if (!isValid(r, c, num)) {
@@ -145,10 +146,11 @@ public class Sodoku {
             if (grid[i][c] == num) return false;
         }
 
-        int boxRow = (r / 3) * 3;
-        int boxCol = (c / 3) * 3;
-        for (int i = boxRow; i < boxRow + 3; i++) {
-            for (int j = boxCol; j < boxCol + 3; j++) {
+        int boxSize = (int) Math.sqrt(row);
+        int boxRow = (r / boxSize) * boxSize;
+        int boxCol = (c / boxSize) * boxSize;
+        for (int i = boxRow; i < boxRow + boxSize; i++) {
+            for (int j = boxCol; j < boxCol + boxSize; j++) {
                 if (grid[i][j] == num) return false;
             }
         }
