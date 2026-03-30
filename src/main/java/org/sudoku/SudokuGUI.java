@@ -148,6 +148,9 @@ public class SudokuGUI extends JFrame {
     
     /** Direction of glow animation (true = increasing, false = decreasing) */
     private boolean glowIncreasing = true;
+
+    /** Current UI scale factor relative to the base 1000×1000 window */
+    private float currentScale = 1.0f;
     
     // =========================================================================
     // UI PANEL REFERENCES
@@ -156,19 +159,13 @@ public class SudokuGUI extends JFrame {
     /** Main panel using CardLayout to switch between screens */
     private JPanel mainPanel;
 
-    /** Layered pane holding background and content layers; kept as field for resize handling */
-    private JLayeredPane layeredPane;
-    
     /** CardLayout manager for switching between menu, difficulty, and game screens */
     private CardLayout cardLayout;
-    
+
     // Card layout identifiers for each screen
     private static final String MENU_PANEL = "MENU";
     private static final String DIFFICULTY_PANEL = "DIFFICULTY";
     private static final String GAME_PANEL = "GAME";
-    
-    /** Background animation panel with floating dots */
-    private DotAnimationPanel dotAnimation;
     
     // =========================================================================
     // CONSTRUCTOR
@@ -185,8 +182,9 @@ public class SudokuGUI extends JFrame {
         // Exit application when window is closed
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
-        // Allow window resizing and fullscreen
+        // Allow window resizing; enforce a sensible minimum so the grid stays usable
         setResizable(true);
+        setMinimumSize(new Dimension(500, 500));
 
         // Enable macOS native fullscreen (green traffic-light button)
         getRootPane().putClientProperty("apple.awt.fullscreenable", Boolean.TRUE);
@@ -197,13 +195,9 @@ public class SudokuGUI extends JFrame {
             public void componentResized(ComponentEvent e) {
                 int w = getContentPane().getWidth();
                 int h = getContentPane().getHeight();
-                if (layeredPane != null) {
-                    layeredPane.setPreferredSize(new Dimension(w, h));
-                    layeredPane.setBounds(0, 0, w, h);
-                    if (dotAnimation != null) dotAnimation.setBounds(0, 0, w, h);
-                    if (mainPanel != null)   mainPanel.setBounds(0, 0, w, h);
-                    layeredPane.revalidate();
-                    layeredPane.repaint();
+                if (mainPanel != null && w > 0 && h > 0) {
+                    currentScale = Math.min(w, h) / (float) WINDOW_WIDTH;
+                    rescaleComponents(mainPanel, currentScale);
                 }
             }
         });
@@ -260,38 +254,25 @@ public class SudokuGUI extends JFrame {
      * Creates the background animation layer and the main content layer.
      */
     private void initComponents() {
-        // Create layered pane to hold background animation and UI layers
-        layeredPane = new JLayeredPane();
-        layeredPane.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
-        
-        // Create and configure the dot animation background
-        dotAnimation = new DotAnimationPanel();
-        dotAnimation.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        layeredPane.add(dotAnimation, JLayeredPane.DEFAULT_LAYER);
-        
         // Create main content panel with card layout for screen switching
         cardLayout = new CardLayout();
         mainPanel = new JPanel(cardLayout);
-        mainPanel.setBackground(new Color(0, 0, 0, 0)); // Transparent
-        mainPanel.setOpaque(false); // Allow background to show through
-        mainPanel.setBounds(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-        
+        mainPanel.setBackground(BLACK_BG);
+        mainPanel.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
+
         // Create the three main screens
-        JPanel menuPanel = createMainMenuPanel();           // Main menu screen
-        JPanel difficultyPanel = createDifficultyPanel();   // Difficulty selection screen
-        JPanel gamePanel = createGamePanel();               // Game play screen
-        
+        JPanel menuPanel = createMainMenuPanel();
+        JPanel difficultyPanel = createDifficultyPanel();
+        JPanel gamePanel = createGamePanel();
+
         // Add panels to card layout with identifiers
         mainPanel.add(menuPanel, MENU_PANEL);
         mainPanel.add(difficultyPanel, DIFFICULTY_PANEL);
         mainPanel.add(gamePanel, GAME_PANEL);
-        
-        // Add main panel to layered pane (above background)
-        layeredPane.add(mainPanel, JLayeredPane.PALETTE_LAYER);
-        
-        // Add layered pane to frame
-        add(layeredPane);
-        
+
+        // Add main panel to frame
+        add(mainPanel);
+
         // Show main menu initially
         cardLayout.show(mainPanel, MENU_PANEL);
     }
@@ -322,6 +303,30 @@ public class SudokuGUI extends JFrame {
         glowTimer.start();
     }
     
+    /**
+     * Recursively rescales fonts for every component tagged with a "baseFontSize"
+     * client property. Call this whenever the window is resized.
+     *
+     * @param container Root container to walk
+     * @param scale     Scale factor relative to the 1000×1000 base window size
+     */
+    private void rescaleComponents(Container container, float scale) {
+        for (Component comp : container.getComponents()) {
+            if (comp instanceof JComponent jc) {
+                Object base = jc.getClientProperty("baseFontSize");
+                if (base instanceof Integer baseSize) {
+                    Font f = jc.getFont();
+                    if (f != null) {
+                        jc.setFont(f.deriveFont((float) Math.max(8, Math.round(baseSize * scale))));
+                    }
+                }
+            }
+            if (comp instanceof Container child) {
+                rescaleComponents(child, scale);
+            }
+        }
+    }
+
     // =========================================================================
     // PANEL CREATION METHODS
     // =========================================================================
@@ -396,6 +401,7 @@ public class SudokuGUI extends JFrame {
             }
         };
         title.setFont(new Font("Arial Unicode MS", Font.BOLD, 68));
+        title.putClientProperty("baseFontSize", 68);
         title.setForeground(NEON_CYAN);
         title.setHorizontalAlignment(SwingConstants.CENTER);
         title.setPreferredSize(new Dimension(650, 100));
@@ -430,6 +436,7 @@ public class SudokuGUI extends JFrame {
             }
         };
         subtitle.setFont(new Font("Arial Unicode MS", Font.PLAIN, 26));
+        subtitle.putClientProperty("baseFontSize", 26);
         subtitle.setForeground(NEON_MAGENTA);
         subtitle.setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -454,6 +461,7 @@ public class SudokuGUI extends JFrame {
         // -------------------------------------------------------------------
         JLabel creditLabel = new JLabel("GUI assembled by cjRem44x (°□°) ☝️");
         creditLabel.setFont(new Font("Arial Unicode MS", Font.ITALIC, 16));
+        creditLabel.putClientProperty("baseFontSize", 16);
         creditLabel.setForeground(new Color(100, 100, 110));
         creditLabel.setHorizontalAlignment(SwingConstants.CENTER);
         
@@ -536,6 +544,7 @@ public class SudokuGUI extends JFrame {
             }
         };
         title.setFont(new Font("Arial Unicode MS", Font.BOLD, 47));
+        title.putClientProperty("baseFontSize", 47);
         title.setPreferredSize(new Dimension(650, 80));
         
         // -------------------------------------------------------------------
@@ -632,6 +641,7 @@ public class SudokuGUI extends JFrame {
             }
         };
         titleLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 29));
+        titleLabel.putClientProperty("baseFontSize", 29);
         titleLabel.setPreferredSize(new Dimension(390, 52));
         
         // TIMER label - Shows elapsed time with green glow
@@ -661,6 +671,7 @@ public class SudokuGUI extends JFrame {
             }
         };
         timerLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 21));
+        timerLabel.putClientProperty("baseFontSize", 21);
         timerLabel.setPreferredSize(new Dimension(195, 52));
         
         topPanel.add(backBtn, BorderLayout.WEST);
@@ -672,6 +683,7 @@ public class SudokuGUI extends JFrame {
         // -------------------------------------------------------------------
         statusLabel = new JLabel("SELECT A CELL TO BEGIN");
         statusLabel.setFont(new Font("Arial Unicode MS", Font.BOLD, 18));
+        statusLabel.putClientProperty("baseFontSize", 18);
         statusLabel.setForeground(NEON_YELLOW);
         statusLabel.setHorizontalAlignment(SwingConstants.CENTER);
         statusLabel.setBorder(createGlowBorder(NEON_YELLOW, 2));
@@ -804,6 +816,7 @@ public class SudokuGUI extends JFrame {
         // Configure cell appearance
         cell.setHorizontalAlignment(JTextField.CENTER);
         cell.setFont(new Font("Arial Unicode MS", Font.BOLD, 31));
+        cell.putClientProperty("baseFontSize", 31);
         cell.setPreferredSize(new Dimension(CELL_SIZE, CELL_SIZE));
         cell.setBackground(new Color(10, 10, 15, 200)); // Semi-transparent dark
         cell.setForeground(TEXT_COLOR);
@@ -1180,14 +1193,14 @@ public class SudokuGUI extends JFrame {
                     // Fixed cell - dark background, cyan text, not editable
                     cell.setBackground(new Color(20, 20, 30));
                     cell.setForeground(NEON_CYAN);
-                    cell.setFont(new Font("Arial Unicode MS", Font.BOLD, 31));
+                    cell.setFont(new Font("Arial Unicode MS", Font.BOLD, Math.max(8, Math.round(31 * currentScale))));
                     cell.setEditable(false);
                     cell.setBorder(BorderFactory.createLineBorder(NEON_CYAN, 2));
                 } else {
                     // Editable cell - semi-transparent, white text
                     cell.setBackground(new Color(10, 10, 15, 200));
                     cell.setForeground(TEXT_COLOR);
-                    cell.setFont(new Font("Arial Unicode MS", Font.PLAIN, 31));
+                    cell.setFont(new Font("Arial Unicode MS", Font.PLAIN, Math.max(8, Math.round(31 * currentScale))));
                     cell.setEditable(true);
                     cell.setBorder(BorderFactory.createLineBorder(NEON_BLUE_DIM, 1));
                 }
@@ -1634,6 +1647,7 @@ public class SudokuGUI extends JFrame {
             
             // Set font and base appearance
             setFont(new Font("Arial Unicode MS", Font.BOLD, fontSize));
+            putClientProperty("baseFontSize", fontSize);
             setBackground(BLACK_BG);
             setForeground(neonColor);
             setBorder(createGlowBorder(neonColor, 2));

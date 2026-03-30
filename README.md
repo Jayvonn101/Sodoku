@@ -2,7 +2,7 @@
 
 A feature-rich Java-based Sudoku game with a stunning neon aesthetic, animated backgrounds, and both GUI and console interfaces.
 
-👤 **Original Code by Jayvonn101**  
+👤 **Original Code by Jayvonn101**
 🎨 **GUI assembled by cjRem44x**
 
 ---
@@ -19,52 +19,138 @@ Sodoku/
 │   │               ├── Main.java              # 🖥️ Console entry point
 │   │               ├── Sudoku.java            # 🧩 Sudoku logic and solver
 │   │               ├── SudokuGUI.java         # 🎨 Swing GUI interface (heavily commented)
-│   │               ├── GameState.java         # 💾 Save/load functionality
-│   │               └── DotAnimationPanel.java # ✨ Animated background
-│   └── tests/
-│       └── Game_Generator/
-│           └── SodokuTest.java                # 🧪 JUnit test suite
+│   │               └── GameState.java         # 💾 Save/load functionality
+│   └── test/
+│       └── java/
+│           └── org/
+│               └── sudoku/
+│                   └── SudokuTest.java        # 🧪 JUnit 5 test suite
 ├── scripts/
-│   ├── build.bat       # 🔨 Windows build script
-│   ├── build.sh        # 🔨 Unix build script
+│   ├── build.bat       # 🔨 Windows build script (legacy)
+│   ├── build.sh        # 🔨 Unix build script (legacy)
 │   ├── run.bat         # ▶️ Windows console runner
 │   ├── run.sh          # ▶️ Unix console runner
 │   ├── run-gui.bat     # 🎮 Windows GUI runner
 │   └── run-gui.sh      # 🎮 Unix GUI runner
 ├── lib/
-│   └── junit-platform-console-standalone-1.11.4.jar  # 🧪 JUnit test runner
-├── target/
-│   └── classes/        # 📦 Compiled class files
+│   └── junit-platform-console-standalone-1.11.4.jar  # 🧪 Legacy test runner
+├── target/             # 📦 Maven build output (gitignored)
 ├── saves/              # 💾 Saved games directory (gitignored)
-├── test.sh             # 🧪 Unix test runner script
+├── pom.xml             # 📋 Maven project descriptor
 └── README.md           # 📖 This file
 ```
 
 ---
 
-## 🔨 Building
+## ⚙️ Prerequisites
 
-### 🪟 Windows
-```cmd
-scripts\build.bat
+- **Java 21+** — [Download JDK](https://adoptium.net/)
+- **Apache Maven 3.9+** — see installation instructions below
+
+---
+
+## 📦 Installing Maven
+
+### 🐧 Linux
+
+**Debian / Ubuntu:**
+```bash
+sudo apt update && sudo apt install maven
 ```
 
-### 🐧 Unix/Linux/Mac
+**Fedora / RHEL / CentOS:**
 ```bash
-./scripts/build.sh
+sudo dnf install maven
+```
+
+**Arch Linux:**
+```bash
+sudo pacman -S maven
+```
+
+### 🍎 macOS
+
+Using [Homebrew](https://brew.sh/):
+```bash
+brew install maven
+```
+
+### 🪟 Windows
+
+**Option 1 — winget (built into Windows 10/11):**
+```powershell
+winget install Apache.Maven
+```
+
+**Option 2 — Chocolatey:**
+```powershell
+choco install maven
+```
+
+**Option 3 — Manual install:**
+1. Download the binary zip from [maven.apache.org](https://maven.apache.org/download.cgi)
+2. Extract to a folder (e.g. `C:\Program Files\Maven`)
+3. Add `<install-dir>\bin` to your `PATH` environment variable
+
+**Verify the installation:**
+```bash
+mvn --version
 ```
 
 ---
 
-## 🧪 Testing
+## 🔨 Building with Maven
 
-Run the JUnit test suite to verify core Sudoku logic:
+From the project root:
 
 ```bash
-./test.sh
+# Compile source code only
+mvn compile
+
+# Compile + run all tests
+mvn test
+
+# Compile, test, and package into a JAR
+mvn package
+
+# Remove all build artifacts
+mvn clean
+
+# Clean, then compile and test from scratch
+mvn clean test
 ```
 
-> Requires `lib/junit-platform-console-standalone-1.11.4.jar` (included in repo).
+### 📦 Building the JAR
+
+To produce a runnable JAR, run:
+
+```bash
+mvn clean package
+```
+
+This will:
+1. Delete any previous build output in `target/`
+2. Compile all source files
+3. Run the test suite
+4. Package the compiled classes into `target/sudoku-1.0-SNAPSHOT.jar`
+
+To skip tests and build faster:
+
+```bash
+mvn clean package -DskipTests
+```
+
+The JAR is a standard classpath JAR — it contains only the project classes. Run it by specifying the entry point explicitly (see the **Running** section below).
+
+---
+
+## 🧪 Testing with Maven
+
+```bash
+mvn test
+```
+
+Maven will discover and run all JUnit 5 tests in `src/test/java/` and report results in the terminal. Test reports are also written to `target/surefire-reports/`.
 
 ---
 
@@ -72,26 +158,36 @@ Run the JUnit test suite to verify core Sudoku logic:
 
 ### 🌟 GUI Version (Recommended)
 
-#### 🪟 Windows
-```cmd
-scripts\run-gui.bat
+After building with `mvn package`:
+
+#### 🐧 Linux / 🍎 macOS
+```bash
+java -cp target/sudoku-1.0-SNAPSHOT.jar org.sudoku.SudokuGUI
+# or use the provided script
+./scripts/run-gui.sh
 ```
 
-#### 🐧 Unix/Linux/Mac
-```bash
-./scripts/run-gui.sh
+#### 🪟 Windows
+```cmd
+java -cp target\sudoku-1.0-SNAPSHOT.jar org.sudoku.SudokuGUI
+:: or use the provided script
+scripts\run-gui.bat
 ```
 
 ### 🖥️ Console Version
 
-#### 🪟 Windows
-```cmd
-scripts\run.bat
+#### 🐧 Linux / 🍎 macOS
+```bash
+java -cp target/sudoku-1.0-SNAPSHOT.jar org.sudoku.Main
+# or use the provided script
+./scripts/run.sh
 ```
 
-#### 🐧 Unix/Linux/Mac
-```bash
-./scripts/run.sh
+#### 🪟 Windows
+```cmd
+java -cp target\sudoku-1.0-SNAPSHOT.jar org.sudoku.Main
+:: or use the provided script
+scripts\run.bat
 ```
 
 ---
@@ -194,7 +290,7 @@ scripts\run.bat
 ### ⚡ Difficulty Shortcuts
 From the difficulty screen, click:
 - **🟢 Easy (30)**: 30 empty cells
-- **🟡 Medium (45)**: 45 empty cells  
+- **🟡 Medium (45)**: 45 empty cells
 - **🟠 Hard (55)**: 55 empty cells
 - **🔧 Custom**: Enter any value 1-80
 
@@ -231,7 +327,7 @@ From the difficulty screen, click:
 
 ## 👥 Authors
 
-👤 **Original Sudoku Logic & Solver by Jayvonn101**  
+👤 **Original Sudoku Logic & Solver by Jayvonn101**
 🎨 **Neon GUI, Animations & Enhancements by cjRem44x**
 
 ---

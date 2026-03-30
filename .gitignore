@@ -1,6 +1,11 @@
 # Compiled class files
 *.class
+
+# Maven build output
 target/
+
+# Old manual build output
+bin/
 
 # IDE files
 .vscode/
@@ -20,7 +25,6 @@ Thumbs.db
 # Save files
 saves/
 
-# Package files
-*.jar
+# Package files (keep lib/ tracked for legacy test runner)
 *.war
 *.ear
