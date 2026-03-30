@@ -155,6 +155,9 @@ public class SudokuGUI extends JFrame {
     
     /** Main panel using CardLayout to switch between screens */
     private JPanel mainPanel;
+
+    /** Layered pane holding background and content layers; kept as field for resize handling */
+    private JLayeredPane layeredPane;
     
     /** CardLayout manager for switching between menu, difficulty, and game screens */
     private CardLayout cardLayout;
@@ -185,20 +188,51 @@ public class SudokuGUI extends JFrame {
         // Allow window resizing and fullscreen
         setResizable(true);
 
-        // Toggle fullscreen with F11
-        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-            .put(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), "toggleFullscreen");
-        getRootPane().getActionMap().put("toggleFullscreen", new AbstractAction() {
+        // Enable macOS native fullscreen (green traffic-light button)
+        getRootPane().putClientProperty("apple.awt.fullscreenable", Boolean.TRUE);
+
+        // Resize layered-pane children whenever the window size changes (e.g. entering fullscreen)
+        addComponentListener(new ComponentAdapter() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
-                if (device.getFullScreenWindow() == SudokuGUI.this) {
-                    device.setFullScreenWindow(null);
-                } else {
-                    device.setFullScreenWindow(SudokuGUI.this);
+            public void componentResized(ComponentEvent e) {
+                int w = getContentPane().getWidth();
+                int h = getContentPane().getHeight();
+                if (layeredPane != null) {
+                    layeredPane.setPreferredSize(new Dimension(w, h));
+                    layeredPane.setBounds(0, 0, w, h);
+                    if (dotAnimation != null) dotAnimation.setBounds(0, 0, w, h);
+                    if (mainPanel != null)   mainPanel.setBounds(0, 0, w, h);
+                    layeredPane.revalidate();
+                    layeredPane.repaint();
                 }
             }
         });
+
+        // Toggle macOS native fullscreen with Ctrl+Cmd+F (standard Mac shortcut)
+        AbstractAction toggleFullscreen = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    Class<?> appClass = Class.forName("com.apple.eawt.Application");
+                    Object app = appClass.getMethod("getApplication").invoke(null);
+                    appClass.getMethod("requestToggleFullScreen", java.awt.Window.class).invoke(app, SudokuGUI.this);
+                } catch (Exception ex) {
+                    // Fallback for non-Mac: toggle exclusive fullscreen
+                    GraphicsDevice device = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+                    if (device.getFullScreenWindow() == SudokuGUI.this) {
+                        device.setFullScreenWindow(null);
+                    } else {
+                        device.setFullScreenWindow(SudokuGUI.this);
+                    }
+                }
+            }
+        };
+        // Ctrl+Cmd+F (Mac standard) and F11 (cross-platform fallback)
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke(KeyEvent.VK_F, InputEvent.META_DOWN_MASK | InputEvent.CTRL_DOWN_MASK), "toggleFullscreen");
+        getRootPane().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+            .put(KeyStroke.getKeyStroke(KeyEvent.VK_F11, 0), "toggleFullscreen");
+        getRootPane().getActionMap().put("toggleFullscreen", toggleFullscreen);
         
         // Create save directory if it doesn't exist
         new File(SAVE_DIR).mkdirs();
@@ -227,7 +261,7 @@ public class SudokuGUI extends JFrame {
      */
     private void initComponents() {
         // Create layered pane to hold background animation and UI layers
-        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane = new JLayeredPane();
         layeredPane.setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         
         // Create and configure the dot animation background
