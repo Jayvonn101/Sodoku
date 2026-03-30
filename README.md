@@ -19,8 +19,7 @@ Sodoku/
 │   │               ├── Main.java              # 🖥️ Console entry point
 │   │               ├── Sudoku.java            # 🧩 Sudoku logic and solver
 │   │               ├── SudokuGUI.java         # 🎨 Swing GUI interface (heavily commented)
-│   │               ├── GameState.java         # 💾 Save/load functionality
-│   │               └── DotAnimationPanel.java # ✨ Animated background
+│   │               └── GameState.java         # 💾 Save/load functionality
 │   └── test/
 │       └── java/
 │           └── org/
@@ -121,7 +120,27 @@ mvn clean
 mvn clean test
 ```
 
-The compiled JAR is placed at `target/sudoku-1.0-SNAPSHOT.jar`.
+### 📦 Building the JAR
+
+To produce a runnable JAR, run:
+
+```bash
+mvn clean package
+```
+
+This will:
+1. Delete any previous build output in `target/`
+2. Compile all source files
+3. Run the test suite
+4. Package the compiled classes into `target/sudoku-1.0-SNAPSHOT.jar`
+
+To skip tests and build faster:
+
+```bash
+mvn clean package -DskipTests
+```
+
+The JAR is a standard classpath JAR — it contains only the project classes. Run it by specifying the entry point explicitly (see the **Running** section below).
 
 ---
 
