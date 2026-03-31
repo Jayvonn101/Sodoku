@@ -1045,11 +1045,31 @@ public class SudokuGUI extends JFrame {
                 }
             });
             
+            // DELETE button
+            NeonButton deleteBtn = new NeonButton("🗑 DELETE", NEON_RED, 18, new Dimension(156, 60));
+            deleteBtn.addActionListener(e -> {
+                String selected = list.getSelectedValue();
+                if (selected != null) {
+                    int confirm = JOptionPane.showConfirmDialog(
+                        dialog,
+                        "Delete save \"" + selected + "\"?",
+                        "Confirm Delete",
+                        JOptionPane.YES_NO_OPTION
+                    );
+                    if (confirm == JOptionPane.YES_OPTION) {
+                        new File(SAVE_DIR + selected + ".sav").delete();
+                        dialog.dispose();
+                        showLoadGameDialog();
+                    }
+                }
+            });
+
             // CANCEL button
-            NeonButton cancelBtn = new NeonButton("✗ CANCEL", NEON_RED, 18, new Dimension(156, 60));
+            NeonButton cancelBtn = new NeonButton("✗ CANCEL", NEON_MAGENTA, 18, new Dimension(156, 60));
             cancelBtn.addActionListener(e -> dialog.dispose());
-            
+
             btnPanel.add(loadBtn);
+            btnPanel.add(deleteBtn);
             btnPanel.add(cancelBtn);
             panel.add(btnPanel, BorderLayout.SOUTH);
         }
