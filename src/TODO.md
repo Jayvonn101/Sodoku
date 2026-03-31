@@ -1,68 +1,27 @@
-# Sudoku Test Todo List
+# REST API Setup
 
-## Setup
-- [ ] Add JUnit 5 to the project
-- [ ] Create `tests/Game_Generator/` package structure
+## Dependencies
 
----
+- [ ] Add Spring Boot parent to `pom.xml`
+- [ ] Add `spring-boot-starter-web` dependency
+- [ ] Add `spring-boot-maven-plugin` to build plugins
 
-## Sudoku.java Tests
+## Project Structure
 
-### Constructor
-- [ ] Valid 9x9 dimensions initializes a zeroed grid
-- [ ] Non-square dimensions throw an exception
+- [ ] Create `SudokuController.java` in `src/main/java/org/sudoku/`
+- [ ] Create `GameSession.java` to hold in-memory game state
+- [ ] Create `GameStore.java` to manage active games with a `HashMap`
 
-### `isValid(r, c, num)`
-- [ ] Returns `true` for a valid number placement
-- [ ] Returns `false` if number already exists in the same row
-- [ ] Returns `false` if number already exists in the same column
-- [ ] Returns `false` if number already exists in the same 3x3 box
-- [ ] Works correctly for corner cells (e.g., [0][0], [8][8])
-- [ ] Works correctly for middle box (e.g., [4][4])
+## Endpoints
 
-### `fillNums()`
-- [ ] All cells are filled after calling (no zeros)
-- [ ] No row contains duplicate numbers
-- [ ] No column contains duplicate numbers
-- [ ] No 3x3 box contains duplicate numbers
+- [ ] `POST /api/game/new` — generate a new puzzle
+- [ ] `GET /api/game/{id}` — get current game state
+- [ ] `POST /api/game/{id}/move` — place a number
+- [ ] `DELETE /api/game/{id}/move` — remove a number
+- [ ] `GET /api/game/{id}/hint` — get a hint
+- [ ] `GET /api/game/{id}/solve` — auto-solve the puzzle
 
-### `placeNum(r, c, num)`
-- [ ] Valid move is placed on the grid
-- [ ] Out-of-bounds row is rejected
-- [ ] Out-of-bounds column is rejected
-- [ ] Placing on an already-occupied cell is rejected
-- [ ] Number below 1 is rejected
-- [ ] Number above 9 is rejected
-- [ ] Number violating row/col/box rules is rejected
+## Testing
 
-### `placeEmptyCells(n)`
-- [ ] Exactly `n` cells become 0 after calling
-- [ ] `n = 0` leaves the grid unchanged
-- [ ] `n = 81` empties the entire grid
-- [ ] Negative `n` is rejected
-- [ ] `n` greater than total cells is rejected
-
-### `isSolved()`
-- [ ] Returns `false` when any cell is empty (0)
-- [ ] Returns `true` when all cells are filled
-
-### `findEmptyCell()`
-- [ ] Returns `null` on a fully filled grid
-- [ ] Returns correct `[row, col]` for the first empty cell found
-
-### `solve()`
-- [ ] Solves a partially filled valid grid
-- [ ] Solves a fully empty grid
-- [ ] An already-solved grid remains unchanged
-- [ ] Returns `false` for an unsolvable grid
-
----
-
-## Setup.java Tests (Integration)
-> Note: These require refactoring input methods or using piped Scanner input
-
-- [ ] Valid row/col input is accepted
-- [ ] Invalid (non-square) dimensions prompt re-entry
-- [ ] Empty cell count within valid range is accepted
-- [ ] Empty cell count exceeding total cells is rejected
-- [ ] Game loop ends when `isSolved()` returns `true`
+- [ ] Test all endpoints with Postman or curl
+- [ ] Verify error responses (invalid move, bad game ID, out of bounds)
